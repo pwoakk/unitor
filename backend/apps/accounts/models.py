@@ -43,7 +43,7 @@ class User(AbstractUser):
     )
     username = None
     middle_name = models.CharField('Отчество', max_length=150, blank=True)
-    date_birth = models.DateField('Дата рождения', default=timezone.now)
+    date_birth = models.DateField('Дата рождения', default=timezone.now())
     gender = models.CharField(
         'Пол',
         max_length=7,

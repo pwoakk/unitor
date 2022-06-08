@@ -1,5 +1,6 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, SetPasswordForm
+from django.core.exceptions import ValidationError
 
 from .models import User
 
@@ -56,3 +57,25 @@ class UserRegisterForm(UserCreationForm):
             'gender': forms.ChoiceField(),
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+
+class UserUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = [
+            'first_name',
+            'last_name',
+            'middle_name',
+            'phone',
+            'avatar',
+        ]
+        widgets = {
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'middle_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'phone': forms.TextInput(attrs={'class': 'form-control'}),
+            'avatar': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+

@@ -1,10 +1,14 @@
 from django.contrib.auth import login, authenticate, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.contrib.auth.views import PasswordChangeView
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import LoginForm, UserRegisterForm
+from .forms import LoginForm, UserRegisterForm, UserUpdateForm
+from .models import User
 
 
 class LoginView(generic.FormView):
@@ -39,3 +43,18 @@ def user_logout(request):
     if request.user.is_authenticated:
         logout(request)
     return redirect('index')
+
+
+class UserUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.UpdateView):
+    model = User
+    form_class = UserUpdateForm
+    template_name = 'user_update.html'
+    success_url = reverse_lazy('index')
+
+    def test_func(self):
+        if self.kwargs.get('pk') == self.request.user.pk:
+            return True
+        return False
+
+
+
