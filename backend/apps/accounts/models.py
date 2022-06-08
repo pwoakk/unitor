@@ -4,6 +4,7 @@ from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.base_user import BaseUserManager
 
 from django.db import models
+from django.utils import timezone
 
 
 class UserManager(BaseUserManager):
@@ -42,7 +43,7 @@ class User(AbstractUser):
     )
     username = None
     middle_name = models.CharField('Отчество', max_length=150, blank=True)
-    date_birth = models.DateField('Дата рождения', default=date.today())
+    date_birth = models.DateField('Дата рождения', default=timezone.now)
     gender = models.CharField(
         'Пол',
         max_length=7,

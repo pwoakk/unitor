@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # created apps
-    'backend.apps.accounts'
+    'backend.apps.accounts',
+    'backend.apps.posts'
 ]
 
 MIDDLEWARE = [
